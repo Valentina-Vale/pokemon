@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -56,4 +57,35 @@ public class PokemonController {
         }
         return ResponseEntity.status(HttpStatus.OK).body(oldOpt.get());
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Pokemon> deletePokemon(@PathVariable long id) {
+        Optional<Pokemon> pokemon = pokemonService.findById(id);
+        if(pokemon.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        pokemonService.deletePokemon(id);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @GetMapping("/letter/{c}")
+    public ResponseEntity<List<Pokemon>> findByContainingLetter(@PathVariable char c) {
+        List<Pokemon> list = pokemonService.getPokemonWithLetter(c);
+        if(list.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    @GetMapping("/hp/{n}")
+    public ResponseEntity<List<Pokemon>> findByHPMoreThan(@PathVariable int n) {
+        List<Pokemon> list = pokemonService.getPokemonWithHPMoreThan(n);
+        if(list.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+
 }

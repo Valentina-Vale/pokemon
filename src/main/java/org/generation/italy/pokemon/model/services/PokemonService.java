@@ -12,4 +12,6 @@ public interface PokemonService {
     List<Pokemon> getAll();
     Optional<Pokemon> updatePokemon(Pokemon pokemon);
     void deletePokemon(long pokemonId);
+    List<Pokemon> getPokemonWithLetter(char c);
+    List<Pokemon> getPokemonWithHPMoreThan(int n);
 }

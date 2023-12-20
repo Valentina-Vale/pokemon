@@ -46,4 +46,14 @@ public class PokemonServiceImpl implements PokemonService{
     public void deletePokemon(long pokemonId) {
         pokemonRepository.deleteById(pokemonId);
     }
+
+    @Override
+    public List<Pokemon> getPokemonWithLetter(char c) {
+        return pokemonRepository.findByNameContaining(c);
+    }
+
+    @Override
+    public List<Pokemon> getPokemonWithHPMoreThan(int n) {
+        return pokemonRepository.findByPuntiVitaGreaterThanEqual(n);
+    }
 }
