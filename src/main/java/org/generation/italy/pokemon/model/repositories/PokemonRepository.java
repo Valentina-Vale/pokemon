@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface PokemonRepository extends JpaRepository<Pokemon,Long> {
 
-    List<Pokemon> findByNameContaining(char c);
+    List<Pokemon> findByNameContainingIgnoreCase(char c);
     List<Pokemon> findByPuntiVitaGreaterThanEqual(int n);
 
 }
