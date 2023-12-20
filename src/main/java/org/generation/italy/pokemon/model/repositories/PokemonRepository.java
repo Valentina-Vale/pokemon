@@ -1,0 +1,7 @@
+package org.generation.italy.pokemon.model.repositories;
+
+import org.generation.italy.pokemon.model.entities.Pokemon;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface PokemonRepository extends JpaRepository<Pokemon,Long>{
+}
