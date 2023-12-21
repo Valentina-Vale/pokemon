@@ -1,6 +1,5 @@
 package org.generation.italy.pokemon.controllers;
 
-import jakarta.servlet.http.HttpServletResponse;
 import org.generation.italy.pokemon.model.entities.Pokemon;
 import org.generation.italy.pokemon.model.services.PokemonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +21,7 @@ public class PokemonController {
     public PokemonController(PokemonService pokemonService){
         this.pokemonService = pokemonService;
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<Pokemon> findById(@PathVariable long id){
         Optional<Pokemon> opt = pokemonService.findById(id);
@@ -30,6 +30,19 @@ public class PokemonController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<List<Pokemon>> search(@RequestParam(required = false) String part, @RequestParam(required = false) Integer minHP) {
+        List<Pokemon> pokemons = null;
+        if(part != null && part.length() > 0) {
+            pokemons = pokemonService.getPokemonsWithNameContaining(part);
+        } else if(minHP != null) {
+            pokemons = pokemonService.getPokemonsWithHPMoreThan(minHP);
+        } else {
+            pokemons = pokemonService.getAll();
+        }
+        return new ResponseEntity<>(pokemons, HttpStatus.OK);
     }
 
     @PostMapping("/")
@@ -66,26 +79,26 @@ public class PokemonController {
         }
 
         pokemonService.deletePokemon(id);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @GetMapping("/letter/{c}")
+    /* @GetMapping("/letter/{c}")
     public ResponseEntity<List<Pokemon>> findByContainingLetter(@PathVariable String c) {
-        List<Pokemon> list = pokemonService.getPokemonWithLetter(c);
+        List<Pokemon> list = pokemonService.getPokemonsWithNameContaining(c);
         if(list.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         return new ResponseEntity<>(list, HttpStatus.OK);
-    }
+    } */
 
-    @GetMapping("/hp/{n}")
+    /* @GetMapping("/hp/{n}")
     public ResponseEntity<List<Pokemon>> findByHPMoreThan(@PathVariable int n) {
-        List<Pokemon> list = pokemonService.getPokemonWithHPMoreThan(n);
+        List<Pokemon> list = pokemonService.getPokemonsWithHPMoreThan(n);
         if(list.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         return new ResponseEntity<>(list, HttpStatus.OK);
-    }
+    } */
 
 
 }

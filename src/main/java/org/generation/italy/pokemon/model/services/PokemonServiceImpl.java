@@ -48,12 +48,12 @@ public class PokemonServiceImpl implements PokemonService{
     }
 
     @Override
-    public List<Pokemon> getPokemonWithLetter(String c) {
+    public List<Pokemon> getPokemonsWithNameContaining(String c) {
         return pokemonRepository.findByNameContainingIgnoreCase(c);
     }
 
     @Override
-    public List<Pokemon> getPokemonWithHPMoreThan(int n) {
+    public List<Pokemon> getPokemonsWithHPMoreThan(int n) {
         return pokemonRepository.findByPuntiVitaGreaterThanEqual(n);
     }
 }
