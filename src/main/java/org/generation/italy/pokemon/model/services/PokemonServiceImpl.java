@@ -48,7 +48,7 @@ public class PokemonServiceImpl implements PokemonService{
     }
 
     @Override
-    public List<Pokemon> getPokemonWithLetter(char c) {
+    public List<Pokemon> getPokemonWithLetter(String c) {
         return pokemonRepository.findByNameContainingIgnoreCase(c);
     }
 

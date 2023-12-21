@@ -70,7 +70,7 @@ public class PokemonController {
     }
 
     @GetMapping("/letter/{c}")
-    public ResponseEntity<List<Pokemon>> findByContainingLetter(@PathVariable char c) {
+    public ResponseEntity<List<Pokemon>> findByContainingLetter(@PathVariable String c) {
         List<Pokemon> list = pokemonService.getPokemonWithLetter(c);
         if(list.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
