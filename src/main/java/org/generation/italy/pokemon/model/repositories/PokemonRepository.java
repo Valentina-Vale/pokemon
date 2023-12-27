@@ -9,5 +9,5 @@ public interface PokemonRepository extends JpaRepository<Pokemon,Long> {
 
     List<Pokemon> findByNameContainingIgnoreCase(String c);
     List<Pokemon> findByPuntiVitaGreaterThanEqual(int n);
-
+    List<Pokemon> findByPuntiVitaGreaterThanEqualAndNameContainingIgnoreCase(int n, String c);
 }

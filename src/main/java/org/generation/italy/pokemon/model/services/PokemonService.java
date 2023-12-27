@@ -14,4 +14,5 @@ public interface PokemonService {
     void deletePokemon(long pokemonId);
     List<Pokemon> getPokemonsWithNameContaining(String c);
     List<Pokemon> getPokemonsWithHPMoreThan(int n);
+    List<Pokemon> getPokemonsWithAllData(int n, String c);
 }

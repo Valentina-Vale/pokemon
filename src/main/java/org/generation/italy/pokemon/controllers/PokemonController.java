@@ -36,6 +36,10 @@ public class PokemonController {
     @GetMapping("/")
     public ResponseEntity<List<Pokemon>> search(@RequestParam(required = false) String part, @RequestParam(required = false) Integer minHP) {
         List<Pokemon> pokemons = null;
+        if((part != null && part.length() > 0) && minHP != null) {
+            pokemons = pokemonService.getPokemonsWithAllData(minHP, part);
+            return new ResponseEntity<>(pokemons, HttpStatus.OK);
+        }
         if(part != null && part.length() > 0) {
             pokemons = pokemonService.getPokemonsWithNameContaining(part);
         } else if(minHP != null) {
@@ -64,6 +68,7 @@ public class PokemonController {
     @PutMapping("/{id}")
     public ResponseEntity<Pokemon> updatePokemon(@PathVariable long id, @RequestBody Pokemon pokemon){
         if (id!= pokemon.getId()){
+            System.out.println("OOPS!");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
         Optional<Pokemon> oldOpt = pokemonService.updatePokemon(pokemon);

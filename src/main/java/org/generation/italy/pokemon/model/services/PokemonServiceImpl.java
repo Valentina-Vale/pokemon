@@ -56,4 +56,9 @@ public class PokemonServiceImpl implements PokemonService{
     public List<Pokemon> getPokemonsWithHPMoreThan(int n) {
         return pokemonRepository.findByPuntiVitaGreaterThanEqual(n);
     }
+
+    @Override
+    public List<Pokemon> getPokemonsWithAllData(int n, String c) {
+        return pokemonRepository.findByPuntiVitaGreaterThanEqualAndNameContainingIgnoreCase(n, c);
+    }
 }
