@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "http://127.0.0.1:5500")
 @RequestMapping("/api/pokemon")
 public class PokemonController {
     private PokemonService pokemonService;
@@ -45,8 +46,9 @@ public class PokemonController {
         return new ResponseEntity<>(pokemons, HttpStatus.OK);
     }
 
-    @PostMapping("/")
+    @PostMapping(value = "/", consumes = {"application/json"})
     public ResponseEntity<Pokemon> createPokemon(@RequestBody Pokemon pokemon) throws URISyntaxException {
+        System.out.println("I'M HERE BABY");
         Pokemon createdPokemon = pokemonService.createPokemon(pokemon);
         URI location = new URI("/api/pokemon/" + createdPokemon.getId());
         HttpHeaders headers = new HttpHeaders();
